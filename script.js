@@ -1,39 +1,39 @@
 class Calculator {
-  constructor(previousOperandTextElement, currentOperandTextElement) {
-    this.previousOperandTextElement = previousOperandTextElement
-    this.currentOperandTextElement = currentOperandTextElement
+  constructor(previousoperTextElement, currentoperTextElement) {
+    this.previousoperandTextElement = previousoperandTextElement
+    this.currentoperandTextElement = currentoperandTextElement
     this.clear()
   }
 
   clear() {
-    this.currentOperand = ''
-    this.previousOperand = ''
+    this.currentoper = ''
+    this.previousoper = ''
     this.operation = undefined
   }
 
   delete() {
-    this.currentOperand = this.currentOperand.toString().slice(0, -1)
+    this.currentoper = this.currentoper.toString().slice(0, -1)
   }
 
   appendNumber(number) {
-    if (number === '.' && this.currentOperand.includes('.')) return
-    this.currentOperand = this.currentOperand.toString() + number.toString()
+    if (number === '.' && this.currentoper.includes('.')) return
+    this.currentOperand = this.currentoper.toString() + number.toString()
   }
 
   chooseOperation(operation) {
-    if (this.currentOperand === '') return
-    if (this.previousOperand !== '') {
+    if (this.currentoper === '') return
+    if (this.previousoper !== '') {
       this.compute()
     }
     this.operation = operation
-    this.previousOperand = this.currentOperand
-    this.currentOperand = ''
+    this.previousoper = this.currentoper
+    this.currentoper = ''
   }
 
   compute() {
     let computation
-    const prev = parseFloat(this.previousOperand)
-    const current = parseFloat(this.currentOperand)
+    const prev = parseFloat(this.previousoper)
+    const current = parseFloat(this.currentoper)
     if (isNaN(prev) || isNaN(current)) return
     switch (this.operation) {
       case '+':
@@ -51,9 +51,9 @@ class Calculator {
       default:
         return
     }
-    this.currentOperand = computation
+    this.currentoper = computation
     this.operation = undefined
-    this.previousOperand = ''
+    this.previousoper = ''
   }
 
   getDisplayNumber(number) {
@@ -74,13 +74,13 @@ class Calculator {
   }
 
   updateDisplay() {
-    this.currentOperandTextElement.innerText =
-      this.getDisplayNumber(this.currentOperand)
+    this.currentoperTextElement.innerText =
+      this.getDisplayNumber(this.currentoper)
     if (this.operation != null) {
-      this.previousOperandTextElement.innerText =
-        `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+      this.previousoperTextElement.innerText =
+        `${this.getDisplayNumber(this.previousoper)} ${this.operation}`
     } else {
-      this.previousOperandTextElement.innerText = ''
+      this.previousoperTextElement.innerText = ''
     }
   }
 }
@@ -91,10 +91,10 @@ const operationButtons = document.querySelectorAll('[data-operation]')
 const equalsButton = document.querySelector('[data-equals]')
 const deleteButton = document.querySelector('[data-delete]')
 const allClearButton = document.querySelector('[data-all-clear]')
-const previousOperandTextElement = document.querySelector('[data-previous-operand]')
-const currentOperandTextElement = document.querySelector('[data-current-operand]')
+const previousoperTextElement = document.querySelector('[data-previous-operand]')
+const currentoperTextElement = document.querySelector('[data-current-operand]')
 
-const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+const calculator = new Calculator(previousoperTextElement, currentoperTextElement)
 
 numberButtons.forEach(button => {
   button.addEventListener('click', () => {
